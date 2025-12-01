@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:seletivo_if/shared/widgets/buton.dart';
+// import 'package:seletivo_if/modules/auth/login_page.dart';
+// import 'package:seletivo_if/shared/widgets/card_disciplin.dart';
+import 'package:seletivo_if/shared/widgets/input.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,37 +30,80 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-
-  void _increment() => setState(() => _counter++);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Página Inicial'), centerTitle: true),
+      appBar: AppBar(title: const Text(''), centerTitle: true),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+
           children: <Widget>[
-            const Text('Você pressionou o botão esta quantidade de vezes:'),
-            const SizedBox(height: 8),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Image.asset("lib/shared/assets/LogoIF.png"),
             ),
-            const SizedBox(height: 24),
-            ElevatedButton.icon(
-              onPressed: _increment,
-              icon: const Icon(Icons.add),
-              label: const Text('Incrementar'),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+
+              child: Text(
+                "Quem se prepara chega lá",
+                style: TextStyle(
+                  color: Colors.green,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+
+            // CardDisciplina(
+            //   color: Colors.black,
+            //   icon:Icons.ac_unit_sharp,
+            //    name: 'matematica',)  
+            // My_Input(conteudo: 'E-mail', icone: Icons.email)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: MyInput(
+                label: 'Name',
+                nomeController: TextEditingController(),
+              ),
+            ),
+            SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: MyInput(
+                label: 'E-mail',
+                nomeController: TextEditingController(),
+              ),
+            ),
+            SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: MyInput(
+                label: 'Password',
+                nomeController: TextEditingController(),
+              ),
+            ),
+            SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: MyInput(
+                label: 'Confirm Password',
+                nomeController: TextEditingController(),
+              ),
+            ),
+            SizedBox(height: 30),
+
+            MyButton(
+              conteudo: ("Criar conta"),
+              corFundo: Colors.green,
+              corTexto: Colors.white,
+              onPressed: () {
+                print("enviando");
+              },
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _increment,
-        tooltip: 'Incrementar',
-        child: const Icon(Icons.add),
       ),
     );
   }
