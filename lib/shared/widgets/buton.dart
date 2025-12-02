@@ -25,7 +25,9 @@ class MyButton extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.3), // sombra com opacidade
+              color: Colors.black.withValues(
+                alpha: 0.3,
+              ), // sombra com opacidade
               blurRadius: 6,
               offset: const Offset(2, 4),
             ),
@@ -36,6 +38,11 @@ class MyButton extends StatelessWidget {
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: fundo ? corFundo : null,
+            side: fundo ? null : BorderSide(
+              color: corFundo,
+              width: 2,
+            ),
+
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(100),
             ),

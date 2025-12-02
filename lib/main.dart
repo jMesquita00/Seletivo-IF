@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:seletivo_if/modules/auth/createAccountPage.dart';
 import 'package:seletivo_if/modules/simulated/simulated.dart';
+// import 'package:seletivo_if/modules/auth/createAccountPage.dart';
+import 'package:seletivo_if/modules/simulated/simulatedInf.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'App Inicial',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const Simulated(),
+      // home: const SimulatedInf(),
       // home: const CreatAccountPage(),
       // home: const login_page(),
       debugShowCheckedModeBanner: false,
