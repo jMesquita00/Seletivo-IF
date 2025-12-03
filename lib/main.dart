@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
             // CardDisciplina(
             //   color: Colors.black,
             //   icon:Icons.ac_unit_sharp,
-            //    name: 'matematica',)  
+            //    name: 'matematica',)
             // My_Input(conteudo: 'E-mail', icone: Icons.email)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
