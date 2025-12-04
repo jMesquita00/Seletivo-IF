@@ -13,7 +13,7 @@ class _CreatAccountPageState extends State<CreatAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text(''), centerTitle: true),
+      // appBar: AppBar(title: const Text(''), centerTitle: true),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

@@ -18,8 +18,8 @@ class SimulatedInf extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () {
-            print("voltando para a telka anterior");
-            // Navigator.pop(context);
+            // print("voltando para a telka anterior");
+            Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
