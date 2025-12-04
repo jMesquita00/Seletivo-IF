@@ -14,12 +14,16 @@ class MyInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextField(
-          controller: nomeController, // usa o controller passado
-          decoration: InputDecoration(
-            labelText: label, // usa o label passado
-            border: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
+        SizedBox(
+          width: 300,
+          height: 47,
+          child: TextField(
+            controller: nomeController, // usa o controller passado
+            decoration: InputDecoration(
+              labelText: label, // usa o label passado
+              border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+              ),
             ),
           ),
         ),
