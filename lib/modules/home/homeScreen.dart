@@ -119,6 +119,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:seletivo_if/modules/auth/profaliPage.dart';
 import 'package:seletivo_if/modules/simulated/simulatedInf.dart';
 import 'package:seletivo_if/shared/widgets/card_disciplin.dart';
 import 'package:seletivo_if/shared/widgets/semiC.dart';
@@ -149,11 +150,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 context,
                 MaterialPageRoute(builder: (context) => SimulatedInf()),
               );
-              // case 2:
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => ProfileScreen()),
-              // );
+            case 2:
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfilePage()),
+              );
               break;
           }
         },

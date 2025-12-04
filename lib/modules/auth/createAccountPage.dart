@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seletivo_if/modules/auth/loginScreen.dart';
 import 'package:seletivo_if/shared/widgets/buton.dart';
 import 'package:seletivo_if/shared/widgets/input.dart';
 
@@ -13,14 +14,16 @@ class _CreatAccountPageState extends State<CreatAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       // appBar: AppBar(title: const Text(''), centerTitle: true),
-      body: Center(
+      body: SingleChildScrollView(
+        reverse: true,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
 
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
+              padding: const EdgeInsets.only(top: 55, bottom: 20),
               child: Image.asset("lib/shared/assets/LogoIF.png"),
             ),
             Padding(
@@ -75,7 +78,10 @@ class _CreatAccountPageState extends State<CreatAccountPage> {
               corTexto: Colors.white,
               fundo: true,
               onPressed: () {
-                print("enviando");
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
               },
             ),
             SizedBox(height: 20),
@@ -87,13 +93,10 @@ class _CreatAccountPageState extends State<CreatAccountPage> {
                   const Text("Já tem uma conta? "),
                   GestureDetector(
                     onTap: () {
-                      //     Navigator.push(
-                      //       context //,
-                      print("navegando para a a tela de login");
-                      //       // MaterialPageRoute(
-                      //         // builder: (context) => const loginScreen(),
-                      //       // ),
-                      //     );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      );
                     },
                     child: const Text(
                       "Entra agora ",

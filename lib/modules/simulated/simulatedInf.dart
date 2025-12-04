@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seletivo_if/modules/simulated/simulated.dart';
 import 'package:seletivo_if/shared/widgets/buton.dart';
 
 class SimulatedInf extends StatelessWidget {
@@ -108,7 +109,11 @@ class SimulatedInf extends StatelessWidget {
                 corFundo: Colors.green,
                 corTexto: Colors.white,
                 onPressed: () {
-                  print("começando o simulado");
+                  // print("começando o simulado");
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => Simulated()),
+                  );
                 },
                 fundo: true,
               ),

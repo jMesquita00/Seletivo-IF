@@ -10,6 +10,7 @@ class Simulated extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 50,
+        automaticallyImplyLeading: false,
         title: Padding(
           padding: const EdgeInsets.only(bottom: 10),
           child: const Text(
@@ -17,13 +18,13 @@ class Simulated extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
-        leading: IconButton(
-          onPressed: () {
-            print("voltando para a telka anterior");
-            // Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-        ),
+        // leading: IconButton(
+        //   onPressed: () {
+        //     print("voltando para a telka anterior");
+        //     // Navigator.pop(context);
+        //   },
+        //   icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+        // ),
         centerTitle: true,
         backgroundColor: Colors.green,
       ),
