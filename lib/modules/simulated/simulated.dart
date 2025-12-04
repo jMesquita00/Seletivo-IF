@@ -19,7 +19,7 @@ class Simulated extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () {
-            print("voltando para a telka anterior");
+            print("voltando para a tela anterior");
             // Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:seletivo_if/modules/simulated/simulated.dart';
 // import 'package:seletivo_if/modules/auth/createAccountPage.dart';
-import 'package:seletivo_if/modules/simulated/simulatedInf.dart';
+import 'package:seletivo_if/modules/splash/splash_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'App Inicial',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const Simulated(),
+      home: const SplashPage(),
       // home: const SimulatedInf(),
       // home: const CreatAccountPage(),
       // home: const login_page(),
@@ -23,4 +22,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
