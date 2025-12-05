@@ -98,9 +98,9 @@ class _NotificationListView extends StatelessWidget {
 
 
   final List<String> notifications = const [
-    "hoje é terça",
-    "Amãnha é quarta",
-    "pão com manteiga",
+    "Você não estuda a 3 dias",
+    "Que tal resolver 5 questões hoje?",
+    "Vamos estudar",
   ];
 
   @override

@@ -37,9 +37,9 @@ class _SplashPageState extends State<SplashPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'lib/shared/assets/logoiFWhite.png',
-              height: 360,
-              width: 274,
+              'lib/shared/assets/LogoIfwhite.png',
+              height: 200,
+              width: 200,
             ),
           ],
         ),
