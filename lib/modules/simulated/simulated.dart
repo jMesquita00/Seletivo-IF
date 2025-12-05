@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seletivo_if/shared/widgets/buton.dart';
+import 'package:seletivo_if/modules/simulated/simulated_result.dart';
 
 class Simulated extends StatelessWidget {
   const Simulated({super.key});
@@ -111,17 +112,10 @@ class Simulated extends StatelessWidget {
               corFundo: Colors.green,
               corTexto: Colors.black,
               onPressed: () {
-                print("Proxima questão");
-              },
-              fundo: false,
-            ),
-            SizedBox(height: 40),
-            MyButton(
-              conteudo: "A) Ponto de parada",
-              corFundo: Colors.green,
-              corTexto: Colors.black,
-              onPressed: () {
-                print("Proxima questão");
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => SimulatedResult()),
+                );
               },
               fundo: false,
             ),

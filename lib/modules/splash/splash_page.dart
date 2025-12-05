@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:seletivo_if/modules/auth/createAccountPage.dart';
 import 'package:seletivo_if/modules/auth/loginScreen.dart';
 
 class SplashPage extends StatefulWidget {
