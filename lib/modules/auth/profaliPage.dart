@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seletivo_if/modules/splash/notificationPage.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -51,6 +52,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
 
+                  // Avatar
                   Positioned(
                     bottom: 0,
                     left: 0,
@@ -61,7 +63,7 @@ class ProfilePage extends StatelessWidget {
                           Container(
                             width: 140,
                             height: 140,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color(0xFF8C8C8C),
                               shape: BoxShape.circle,
                             ),
@@ -106,7 +108,7 @@ class ProfilePage extends StatelessWidget {
               "Usuário",
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            Text(
+            const Text(
               "usuario@gmail.com",
               style: TextStyle(fontSize: 16, color: Color(0xFF8C8C8C)),
             ),
@@ -117,10 +119,36 @@ class ProfilePage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 children: [
-                  _buildMenuItem(Icons.person_outline, "Minha Conta"),
-                  _buildMenuItem(Icons.notifications_none, "Notificações"),
-                  _buildMenuItem(Icons.settings_outlined, "Ajustes"),
-                  _buildMenuItem(Icons.book_outlined, "Termos e Privacidade"),
+                  _buildMenuItem(
+                    icon: Icons.person_outline,
+                    text: "Minha Conta",
+                    onPressed: () {},
+                  ),
+
+                  _buildMenuItem(
+                    icon: Icons.notifications_none,
+                    text: "Notificações",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => NotificationScreen(),
+                        ),
+                      );
+                    },
+                  ),
+
+                  _buildMenuItem(
+                    icon: Icons.settings_outlined,
+                    text: "Ajustes",
+                    onPressed: () {},
+                  ),
+
+                  _buildMenuItem(
+                    icon: Icons.book_outlined,
+                    text: "Termos e Privacidade",
+                    onPressed: () {},
+                  ),
 
                   const SizedBox(height: 20),
 
@@ -154,22 +182,26 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(IconData icon, String text) {
+  Widget _buildMenuItem({
+    required IconData icon,
+    required String text,
+    VoidCallback? onPressed,
+  }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 40),
       decoration: BoxDecoration(
-        color: Color(0XCCD5D5D5),
+        color: const Color(0XCCD5D5D5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: ListTile(
-        leading: Icon(icon, color: Color(0XFF319945)),
+        leading: Icon(icon, color: const Color(0XFF319945)),
         title: Text(text, style: const TextStyle(fontWeight: FontWeight.bold)),
         trailing: const Icon(
           Icons.arrow_forward_ios,
           size: 16,
           color: Color(0XFF8C8C8C),
         ),
-        onTap: () {},
+        onTap: onPressed,
       ),
     );
   }
@@ -182,10 +214,10 @@ class HeaderClipper extends CustomClipper<Path> {
     path.lineTo(0, size.height - 50);
 
     path.quadraticBezierTo(
-      size.width / 2, // Ponto de controle X
-      size.height, // Ponto de controle Y
-      size.width, // Ponto final X
-      size.height - 50, // Ponto final Y
+      size.width / 2,
+      size.height,
+      size.width,
+      size.height - 50,
     );
 
     path.lineTo(size.width, 0);
