@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seletivo_if/modules/auth/loginScreen.dart';
+import 'package:seletivo_if/modules/auth/login_screen.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -37,9 +37,9 @@ class _SplashPageState extends State<SplashPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'lib/shared/assets/LogoIfwhite.png',
-              height: 200,
-              width: 200,
+              'lib/shared/assets/logoIfwhite.png',
+              height: 150,
+              width: 150,
             ),
           ],
         ),

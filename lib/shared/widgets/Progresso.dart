@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seletivo_if/shared/colors/colors.dart';
 
 class BarraProgresso extends StatelessWidget {
   final double progresso; // valor entre 0.0 e 1.0
@@ -17,7 +18,7 @@ class BarraProgresso extends StatelessWidget {
             value: progresso,
             minHeight: 30,
             backgroundColor: Colors.grey[300],
-            color: Colors.green,
+            color: AppColors.success,
           ),
         ),
 

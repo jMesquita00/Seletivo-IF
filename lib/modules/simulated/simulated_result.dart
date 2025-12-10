@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:seletivo_if/shared/widgets/buton.dart';
-import 'package:seletivo_if/modules/simulated/simulatedInf.dart';
 
 class SimulatedResult extends StatelessWidget {
   final int acertos;
   final int erros;
 
-  const SimulatedResult({
-    super.key, 
-    this.acertos = 0, 
-    this.erros = 0
-  });
+  const SimulatedResult({super.key, this.acertos = 0, this.erros = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +18,9 @@ class SimulatedResult extends StatelessWidget {
         title: const Text(
           "Simulado IF",
           style: TextStyle(
-            color: Colors.white, 
+            color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 20
+            fontSize: 20,
           ),
         ),
         leading: IconButton(
@@ -40,7 +35,7 @@ class SimulatedResult extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 30),
-            
+
             // Título Sublinhado
             const Text(
               "Resultado",
@@ -54,48 +49,43 @@ class SimulatedResult extends StatelessWidget {
             ),
 
             const SizedBox(height: 50),
-            
-            Icon(
-              Icons.workspace_premium, 
-              size: 100, 
-              color: Colors.green[600],
-            ),
+
+            Icon(Icons.workspace_premium, size: 100, color: Colors.green[600]),
 
             const SizedBox(height: 60),
 
             // Linha de Acertos
             _buildStatRow(
-              label: "Acertos", 
-              count: acertos, 
-              icon: Icons.check_circle, 
-              iconColor: const Color(0xFF00C853)
+              label: "Acertos",
+              count: acertos,
+              icon: Icons.check_circle,
+              iconColor: const Color(0xFF00C853),
             ),
 
             const SizedBox(height: 20),
 
             // Linha de Erros
             _buildStatRow(
-              label: "Erros", 
-              count: erros, 
-              icon: Icons.cancel, 
-              iconColor: Colors.red // Vermelho
+              label: "Erros",
+              count: erros,
+              icon: Icons.cancel,
+              iconColor: Colors.red, // Vermelho
             ),
 
             const Spacer(),
 
             // Botão Finalizar
             MyButton(
-              conteudo: ('Finalizar'), 
-              corFundo: Color(0xFF319945), 
-              corTexto: Colors.white, 
+              conteudo: ('Finalizar'),
+              corFundo: Color(0xFF319945),
+              corTexto: Colors.white,
               onPressed: () {
-                Navigator.pushReplacement( context, MaterialPageRoute(builder: (context) => SimulatedInf()),
-                );
-              }, 
-              fundo: true
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              },
+              fundo: true,
             ),
 
-            const SizedBox(height: 40), // Espaço abaixo do botão
+            const SizedBox(height: 100), // Espaço abaixo do botão
           ],
         ),
       ),
@@ -103,10 +93,10 @@ class SimulatedResult extends StatelessWidget {
   }
 
   Widget _buildStatRow({
-    required String label, 
-    required int count, 
-    required IconData icon, 
-    required Color iconColor
+    required String label,
+    required int count,
+    required IconData icon,
+    required Color iconColor,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -133,7 +123,7 @@ class SimulatedResult extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

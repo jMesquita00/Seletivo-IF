@@ -19,13 +19,6 @@ class Simulated extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
-        // leading: IconButton(
-        //   onPressed: () {
-        //     print("voltando para a telka anterior");
-        //     // Navigator.pop(context);
-        //   },
-        //   icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-        // ),
         centerTitle: true,
         backgroundColor: Colors.green,
       ),
@@ -125,7 +118,7 @@ class Simulated extends StatelessWidget {
               corFundo: Colors.green,
               corTexto: Colors.black,
               onPressed: () {
-                print("Proxima questão");
+                // print("Proxima questão");
               },
               fundo: false,
             ),
@@ -135,7 +128,7 @@ class Simulated extends StatelessWidget {
               corFundo: Colors.green,
               corTexto: Colors.black,
               onPressed: () {
-                print("Proxima questão");
+                // print("Proxima questão");
               },
               fundo: false,
             ),

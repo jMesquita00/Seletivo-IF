@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seletivo_if/modules/auth/loginScreen.dart';
+import 'package:seletivo_if/modules/auth/login_screen.dart';
 import 'package:seletivo_if/shared/widgets/buton.dart';
 import 'package:seletivo_if/shared/widgets/input.dart';
 

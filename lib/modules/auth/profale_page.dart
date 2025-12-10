@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:seletivo_if/modules/splash/notificationPage.dart';
+import 'package:seletivo_if/modules/auth/login_screen.dart';
+import 'package:seletivo_if/modules/splash/notification_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -10,6 +11,7 @@ class ProfilePage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
               height: 280,
@@ -29,6 +31,7 @@ class ProfilePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconButton(
+                            
                             icon: const Icon(
                               Icons.arrow_back,
                               color: Colors.white,
@@ -131,9 +134,7 @@ class ProfilePage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (_) => NotificationScreen(),
-                        ),
+                        MaterialPageRoute(builder: (_) => NotificationScreen()),
                       );
                     },
                   ),
@@ -150,13 +151,18 @@ class ProfilePage extends StatelessWidget {
                     onPressed: () {},
                   ),
 
-                  const SizedBox(height: 20),
+                  // const SizedBox(height: 20),
 
                   // Botão Sair
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                        );
+                      },
                       icon: const Icon(Icons.logout, color: Colors.red),
                       label: const Text(
                         "Sair",
@@ -172,7 +178,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 100),
                 ],
               ),
             ),

@@ -119,10 +119,10 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:seletivo_if/modules/auth/profaliPage.dart';
-import 'package:seletivo_if/modules/simulated/simulatedInf.dart';
+import 'package:seletivo_if/modules/auth/profale_page.dart';
+import 'package:seletivo_if/modules/simulated/simulated_inf.dart';
 import 'package:seletivo_if/shared/widgets/card_disciplin.dart';
-import 'package:seletivo_if/shared/widgets/semiC.dart';
+import 'package:seletivo_if/shared/widgets/semi_c.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -190,8 +190,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 300, left: 20, right: 20),
                 child: CardDisciplina(
-                  name: "Matemática",
-                  color: Colors.black,
+                  name: "Português",
+                  color: Colors.orangeAccent,
                   text: 'Aula 1.1 - Concordância verbal e nominal',
                 ),
               ),
@@ -199,8 +199,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 500, left: 20, right: 20),
                 child: CardDisciplina(
-                  name: "Português",
-                  color: Colors.red,
+                  name: "Matemática",
+                  color: Colors.blueAccent,
                   text: 'Aula 2.2 - Equações do segundo grau',
                 ),
               ),

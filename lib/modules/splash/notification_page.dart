@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:seletivo_if/shared/colors/colors.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
 
-  final Color primaryDarkGreen = const Color(0xFF2E7D32);
-  final Color primaryLightGreen = const Color(0xFF4CAF50);
-
   @override
   Widget build(BuildContext context) {
-
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.background,
         body: SafeArea(
           child: Column(
             children: [
-              // Header
+              //  Header
               Container(
-                color: primaryDarkGreen,
+                color: AppColors.primary,
                 height: 120,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -29,28 +26,31 @@ class NotificationScreen extends StatelessWidget {
                       child: Text(
                         "Notificações",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.background,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                     const Spacer(), // Empurra a TabBar para baixo
-
                     // TabBar
                     TabBar(
                       indicatorSize: TabBarIndicatorSize.tab,
-                      indicatorPadding: const EdgeInsets.symmetric(horizontal: 4),
+                      indicatorPadding: const EdgeInsets.symmetric(
+                        horizontal: 4,
+                      ),
                       indicator: BoxDecoration(
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(8),
                           topRight: Radius.circular(8),
                         ),
-                        color: primaryLightGreen,
+                        color: AppColors.success,
                       ),
                       dividerColor: Colors.transparent,
-                      labelColor: Colors.white,
-                      unselectedLabelColor: Colors.white.withOpacity(0.7),
+                      labelColor: AppColors.background,
+                      unselectedLabelColor: AppColors.background.withOpacity(
+                        0.7,
+                      ),
                       labelStyle: const TextStyle(fontWeight: FontWeight.bold),
 
                       tabs: const [
@@ -69,13 +69,13 @@ class NotificationScreen extends StatelessWidget {
                     // 1. Não lidas
                     _NotificationListView(
                       isRead: false,
-                      primaryColor: primaryDarkGreen,
+                      primaryColor: AppColors.primary,
                     ),
 
                     // 2. Lidas
                     _NotificationListView(
                       isRead: true,
-                      primaryColor: primaryDarkGreen,
+                      primaryColor: AppColors.primary,
                     ),
                   ],
                 ),
@@ -94,8 +94,10 @@ class _NotificationListView extends StatelessWidget {
   final bool isRead;
   final Color primaryColor;
 
-  const _NotificationListView({required this.isRead, required this.primaryColor});
-
+  const _NotificationListView({
+    required this.isRead,
+    required this.primaryColor,
+  });
 
   final List<String> notifications = const [
     "Você não estuda a 3 dias",
@@ -143,6 +145,7 @@ class _NotificationItem extends StatelessWidget {
         // Sombra suave para dar destaque (igual ao design)
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.grey.withOpacity(0.2),
             spreadRadius: 1,
             blurRadius: 3,
@@ -160,7 +163,8 @@ class _NotificationItem extends StatelessWidget {
           // Ícone
           Icon(
             Icons.description,
-            color: isRead ? Colors.grey : primaryColor, // Cor do ícone
+            color: isRead ? Colors.grey : AppColors.primary, // Cor do ícone
+            // color: isRead ? Colors.grey : primaryColor, // Cor do ícone
           ),
           const SizedBox(width: 12),
           // Texto da notificação

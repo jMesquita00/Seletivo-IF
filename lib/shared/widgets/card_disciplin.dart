@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seletivo_if/shared/widgets/Progresso.dart';
+import 'package:seletivo_if/shared/widgets/progresso.dart';
 
 class CardDisciplina extends StatefulWidget {
   final String name;

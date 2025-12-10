@@ -18,7 +18,10 @@ class TopHeader extends StatelessWidget {
           left: 0,
           right: 0,
           child: Center(
-            child: Image.asset("lib/shared/assets/logoiFWhite.png"),
+            child: Image.asset(
+              "lib/shared/assets/logoIfwhite.png",
+              height: 100,
+            ),
           ),
         ),
         Center(
