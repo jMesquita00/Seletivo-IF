@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seletivo_if/modules/auth/create_account_page.dart';
-import 'package:seletivo_if/modules/home/home_screen.dart';
+import 'package:seletivo_if/modules/home/main_screen.dart';
 import 'package:seletivo_if/shared/colors/colors.dart';
 import 'package:seletivo_if/shared/widgets/buton.dart';
 import 'package:seletivo_if/shared/widgets/input.dart';
@@ -67,7 +67,7 @@ class LoginPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                    MaterialPageRoute(builder: (context) => const MainScreen()),
                   );
                 },
                 fundo: true,

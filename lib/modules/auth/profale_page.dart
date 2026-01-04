@@ -9,181 +9,144 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              height: 280,
-              child: Stack(
-                children: [
-                  ClipPath(
-                    clipper: HeaderClipper(),
-                    child: Container(
-                      height: 230,
-                      color: const Color.fromRGBO(49, 153, 69, 1),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 40,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            
-                            icon: const Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
+      body: Column(
+        children: [
+          SizedBox(
+            height: 280,
+            child: Stack(
+              children: [
+                ClipPath(
+                  clipper: HeaderClipper(),
+                  child: Container(height: 230, color: const Color(0xff319945)),
+                ),
+                // Avatar
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: 140,
+                          height: 140,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFF8C8C8C),
+                            shape: BoxShape.circle,
                           ),
-                          TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              "Edit",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
+                          child: const Icon(
+                            Icons.person,
+                            size: 100,
+                            color: Colors.white,
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  // Avatar
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Center(
-                      child: Stack(
-                        children: [
-                          Container(
-                            width: 140,
-                            height: 140,
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
                             decoration: const BoxDecoration(
-                              color: Color(0xFF8C8C8C),
+                              color: Colors.white,
                               shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(blurRadius: 6, color: Colors.black26),
+                              ],
                             ),
                             child: const Icon(
-                              Icons.person,
-                              size: 100,
-                              color: Colors.white,
+                              Icons.camera_alt_outlined,
+                              size: 20,
+                              color: Colors.black,
                             ),
                           ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 6,
-                                    color: Colors.black26,
-                                  ),
-                                ],
-                              ),
-                              child: const Icon(
-                                Icons.camera_alt_outlined,
-                                size: 20,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+          ),
 
-            const SizedBox(height: 10),
-            const Text(
-              "Usuário",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-            const Text(
-              "usuario@gmail.com",
-              style: TextStyle(fontSize: 16, color: Color(0xFF8C8C8C)),
-            ),
+          const SizedBox(height: 10),
+          const Text(
+            "Usuário",
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+          const Text(
+            "usuario@gmail.com",
+            style: TextStyle(fontSize: 16, color: Color(0xFF8C8C8C)),
+          ),
 
-            const SizedBox(height: 30),
+          const SizedBox(height: 30),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                children: [
-                  _buildMenuItem(
-                    icon: Icons.person_outline,
-                    text: "Minha Conta",
-                    onPressed: () {},
-                  ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              children: [
+                _buildMenuItem(
+                  icon: Icons.person_outline,
+                  text: "Minha Conta",
+                  onPressed: () {},
+                ),
+                _buildMenuItem(
+                  icon: Icons.notifications_none,
+                  text: "Notificações",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => NotificationScreen()),
+                    );
+                  },
+                ),
+                _buildMenuItem(
+                  icon: Icons.settings_outlined,
+                  text: "Ajustes",
+                  onPressed: () {},
+                ),
+                _buildMenuItem(
+                  icon: Icons.book_outlined,
+                  text: "Termos e Privacidade",
+                  onPressed: () {},
+                ),
 
-                  _buildMenuItem(
-                    icon: Icons.notifications_none,
-                    text: "Notificações",
+                // Botão Sair
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (_) => NotificationScreen()),
+                        MaterialPageRoute(builder: (_) => LoginPage()),
                       );
                     },
-                  ),
-
-                  _buildMenuItem(
-                    icon: Icons.settings_outlined,
-                    text: "Ajustes",
-                    onPressed: () {},
-                  ),
-
-                  _buildMenuItem(
-                    icon: Icons.book_outlined,
-                    text: "Termos e Privacidade",
-                    onPressed: () {},
-                  ),
-
-                  // const SizedBox(height: 20),
-
-                  // Botão Sair
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => LoginPage()),
-                        );
-                      },
-                      icon: const Icon(Icons.logout, color: Colors.red),
-                      label: const Text(
-                        "Sair",
-                        style: TextStyle(color: Colors.red, fontSize: 20),
+                    icon: const Icon(
+                      Icons.logout,
+                      color: Colors.black,
+                      size: 24,
+                    ),
+                    label: const Text(
+                      "Sair",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        elevation: 2,
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xffFF9191),
+                      elevation: 2,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 100),
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -194,7 +157,7 @@ class ProfilePage extends StatelessWidget {
     VoidCallback? onPressed,
   }) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 40),
+      margin: const EdgeInsets.only(bottom: 30),
       decoration: BoxDecoration(
         color: const Color(0XCCD5D5D5),
         borderRadius: BorderRadius.circular(10),

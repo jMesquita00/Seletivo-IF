@@ -2,103 +2,80 @@ import 'package:flutter/material.dart';
 import 'package:seletivo_if/modules/simulated/simulated.dart';
 import 'package:seletivo_if/shared/widgets/buton.dart';
 
-class SimulatedInf extends StatelessWidget {
+class SimulatedInf extends StatefulWidget {
   const SimulatedInf({super.key});
 
   @override
+  State<SimulatedInf> createState() => _SimulatedInfState();
+}
+
+class _SimulatedInfState extends State<SimulatedInf>
+    with AutomaticKeepAliveClientMixin {
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 50,
-        title: Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: const Text(
+        title: const Padding(
+          padding: EdgeInsets.only(bottom: 10),
+          child: Text(
             "Simulado IF",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
-        leading: IconButton(
-          onPressed: () {
-            // print("voltando para a telka anterior");
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-        ),
         centerTitle: true,
         backgroundColor: Colors.green,
       ),
-
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
+            const SizedBox(height: 60),
+            const SizedBox(
               width: 300,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 60),
-                child: Text(
-                  "Instruções",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.black,
-                  ),
+              child: Text(
+                "Instruções",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 300,
-              child: Padding(
-                padding: EdgeInsetsGeometry.only(top: 0),
-                child: const Text(
-                  "Leia as instruções para o simulado",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w500,
-                  ),
+              child: Text(
+                "Leia as instruções para o simulado",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsetsGeometry.only(top: 20, bottom: 10, left: 30),
-              child: const Text(
-                "O simuldado contém 40 questoes  sorteadas aleatoriamente do banco de dados.rtt",
+            const Padding(
+              padding: EdgeInsets.only(top: 20, left: 30),
+              child: Text(
+                "O simulado contém 40 questões sorteadas aleatoriamente do banco de dados.",
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
               ),
             ),
-            Padding(
-              padding: EdgeInsetsGeometry.only(top: 20, left: 30, right: 30),
-              child: const Text(
+            const Padding(
+              padding: EdgeInsets.only(top: 20, left: 30, right: 30),
+              child: Text(
                 "Cada questão tem apenas uma alternativa correta.",
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
               ),
             ),
-            Padding(
-              padding: EdgeInsetsGeometry.only(top: 20, left: 30, right: 30),
-              child: const Text(
-                "Escolha apenas uma alternativa para cada questão.",
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsGeometry.only(top: 20, left: 30, right: 30),
-              child: const Text(
+            const Padding(
+              padding: EdgeInsets.only(top: 20, left: 30, right: 30),
+              child: Text(
                 "Tempo total para a prova: 40 minutos.",
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsGeometry.only(top: 20, left: 30, right: 30),
-              child: const Text(
-                "Parar ser aprovado, você precisa acertar pelo menos 21 questões (71%).",
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsGeometry.only(top: 20, left: 30, right: 30),
-              child: const Text(
-                "Este simulado não substitui a prova do IFMA.",
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
               ),
             ),
@@ -108,14 +85,14 @@ class SimulatedInf extends StatelessWidget {
                 conteudo: "Começar simulado",
                 corFundo: Colors.green,
                 corTexto: Colors.white,
+                fundo: true,
                 onPressed: () {
-                  // print("começando o simulado");
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => Simulated()),
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const Simulated(),
+                    ),
                   );
                 },
-                fundo: true,
               ),
             ),
           ],
@@ -124,3 +101,4 @@ class SimulatedInf extends StatelessWidget {
     );
   }
 }
+
