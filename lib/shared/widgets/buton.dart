@@ -5,6 +5,7 @@ class MyButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Color corFundo;
   final Color corTexto;
+  final bool fundo;
 
   const MyButton({
     super.key,
@@ -12,18 +13,21 @@ class MyButton extends StatelessWidget {
     required this.corFundo,
     required this.corTexto,
     required this.onPressed,
+    required this.fundo,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 336,
+      width: 300,
       height: 50,
       child: Container(
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.3), // sombra com opacidade
+              color: Colors.black.withValues(
+                alpha: 0.3,
+              ), // sombra com opacidade
               blurRadius: 6,
               offset: const Offset(2, 4),
             ),
@@ -33,7 +37,12 @@ class MyButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-            backgroundColor: corFundo,
+            backgroundColor: fundo ? corFundo : null,
+            side: fundo ? null : BorderSide(
+              color: corFundo,
+              width: 2,
+            ),
+
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(100),
             ),
