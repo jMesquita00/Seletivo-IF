@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 import 'lesson_model.dart';
-import 'lesson_service.dart';
-import 'package:seletivo_if/shared/widgets/app_botton_navigation.dart';
+import 'package:seletivo_if/modules/services/lesson_service.dart';
 
 class LessonPage extends StatefulWidget {
   final String lessonId;
+  final String subjectId;
 
-  const LessonPage({super.key, required this.lessonId});
+  const LessonPage({
+    super.key,
+    required this.lessonId,
+    required this.subjectId,
+  });
 
   @override
   State<LessonPage> createState() => _LessonPageState();
@@ -16,16 +21,45 @@ class _LessonPageState extends State<LessonPage> {
   final LessonService service = LessonService();
   late Future<Lesson> lessonFuture;
 
+  VideoPlayerController? _controller;
+  Future<void>? _initializeVideoPlayerFuture;
+  bool _isVideoInitialized = false;
+
   @override
   void initState() {
     super.initState();
-    lessonFuture = service.getLesson(widget.lessonId);
+
+    // Carrega os dados da aula
+    lessonFuture = service.getLesson(
+      lessonId: widget.lessonId,
+      subjectId: widget.subjectId,
+    );
+  }
+
+  // Função para inicializar o vídeo quando os dados chegarem
+  void _initializeVideo(String videoUrl) {
+    _controller?.dispose(); // Dispose do controller anterior se existir
+
+    _controller = VideoPlayerController.networkUrl(
+      Uri.parse(videoUrl),
+    );
+
+    _initializeVideoPlayerFuture = _controller!.initialize().then((_) {
+      setState(() {
+        _isVideoInitialized = true;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
@@ -36,22 +70,33 @@ class _LessonPageState extends State<LessonPage> {
             fontWeight: FontWeight.w600,
           ),
         ),
-        backgroundColor: Color(0xff319945),
+        backgroundColor: const Color(0xff319945),
         leading: const BackButton(),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
+
       body: FutureBuilder<Lesson>(
         future: lessonFuture,
         builder: (context, snapshot) {
+          // Estados de carregamento/erro
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
+          if (snapshot.hasError) {
+            return Center(child: Text("Erro: ${snapshot.error}"));
+          }
+
           if (!snapshot.hasData) {
-            return const Center(child: Text("Erro ao carregar aula"));
+            return const Center(child: Text("Nenhuma aula encontrada"));
           }
 
           final lesson = snapshot.data!;
+
+          // Inicializa o vídeo se ainda não foi inicializado
+          if (_controller == null && lesson.videoUrl.isNotEmpty) {
+            _initializeVideo(lesson.videoUrl);
+          }
 
           return SingleChildScrollView(
             child: Column(
@@ -61,18 +106,47 @@ class _LessonPageState extends State<LessonPage> {
                 Container(
                   height: 250,
                   width: double.infinity,
-                  color: Color(0xffD9D9D9),
-                  child: const Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Icon(
-                        Icons.play_circle_filled,
-                        size: 60,
-                        color: Color(0xff319945),
-                      ),
-                      Icon(Icons.play_arrow, size: 40, color: Colors.white),
-                    ],
-                  ),
+                  color: const Color(0xffD9D9D9),
+                  child: _controller != null && _isVideoInitialized
+                      ? Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            AspectRatio(
+                              aspectRatio: _controller!.value.aspectRatio,
+                              child: VideoPlayer(_controller!),
+                            ),
+                            Positioned(
+                              bottom: 10,
+                              right: 10,
+                              child: IconButton(
+                                icon: Icon(
+                                  _controller!.value.isPlaying
+                                      ? Icons.pause
+                                      : Icons.play_arrow,
+                                  color: Colors.white,
+                                  size: 40,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _controller!.value.isPlaying
+                                        ? _controller!.pause()
+                                        : _controller!.play();
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        )
+                      : const Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(),
+                              SizedBox(height: 10),
+                              Text("Carregando vídeo..."),
+                            ],
+                          ),
+                        ),
                 ),
 
                 const SizedBox(height: 20),
@@ -81,13 +155,13 @@ class _LessonPageState extends State<LessonPage> {
                 Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(0),
-                    side: BorderSide(color: Color(0xff319945), width: 2),
+                    side: const BorderSide(color: Color(0xff319945), width: 2),
                   ),
                   elevation: 3,
                   child: Padding(
                     padding: const EdgeInsets.all(24),
                     child: Text(
-                      lesson.title,
+                      lesson.title, // Título do Firestore
                       style: const TextStyle(fontSize: 16),
                     ),
                   ),
@@ -120,15 +194,13 @@ class _LessonPageState extends State<LessonPage> {
                           ),
                           foregroundColor: Colors.black,
                         ),
-
                         icon: const Icon(Icons.arrow_back),
                         label: const Text("Aula anterior"),
                       ),
-
                       OutlinedButton(
                         onPressed: () {},
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: Colors.black, // cor do texto e ícone
+                          foregroundColor: Colors.black,
                           side: const BorderSide(
                             color: Color(0xff319945),
                             width: 2,
@@ -153,8 +225,6 @@ class _LessonPageState extends State<LessonPage> {
                     ],
                   ),
                 ),
-
-                const SizedBox(height: 30),
 
                 /// MATERIAIS
                 Padding(
@@ -191,7 +261,6 @@ class _LessonPageState extends State<LessonPage> {
                           ),
                         ),
                         const SizedBox(height: 12),
-
                         SizedBox(
                           height: 200,
                           child: ListView.builder(

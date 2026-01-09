@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:seletivo_if/modules/home/main_screen.dart';
+// import 'package:seletivo_if/modules/home/main_screen.dart';
+import 'package:seletivo_if/modules/lesson/lesson_page.dart';
+import 'package:seletivo_if/modules/services/lesson_service.dart';
+import 'package:seletivo_if/modules/lesson/lesson_model.dart';
 
 // Enum para as matérias
 enum Subject { portuguese, math }
@@ -13,104 +16,14 @@ class LessonsListScreen extends StatefulWidget {
 
 class _LessonsListScreenState extends State<LessonsListScreen> {
   Subject selectedSubject = Subject.portuguese;
+  final LessonService _lessonService = LessonService();
 
-  // Mock de dados - Depois virá do Firebase
-  final Map<Subject, List<LessonItem>> mockLessons = {
-    Subject.portuguese: [
-      LessonItem(
-        id: 'port-001',
-        number: '01',
-        title: 'Interpretação de Texto',
-        subtitle: 'Técnicas e estratégias',
-      ),
-      LessonItem(
-        id: 'port-002',
-        number: '02',
-        title: 'Gramática Básica',
-        subtitle: 'Classes gramaticais',
-      ),
-      LessonItem(
-        id: 'port-003',
-        number: '03',
-        title: 'Concordância Verbal',
-        subtitle: 'Regras fundamentais',
-      ),
-      LessonItem(
-        id: 'port-004',
-        number: '04',
-        title: 'Concordância Nominal',
-        subtitle: 'Como aplicar corretamente',
-      ),
-      LessonItem(
-        id: 'port-005',
-        number: '05',
-        title: 'Ortografia',
-        subtitle: 'Principais regras',
-      ),
-      LessonItem(
-        id: 'port-006',
-        number: '06',
-        title: 'Acentuação Gráfica',
-        subtitle: 'Quando acentuar',
-      ),
-      LessonItem(
-        id: 'port-007',
-        number: '07',
-        title: 'Crase',
-        subtitle: 'Uso e aplicação',
-      ),
-    ],
-
-    Subject.math: [
-      LessonItem(
-        id: 'math-001',
-        number: '01',
-        title: 'Operações Básicas',
-        subtitle: 'Soma, subtração, multiplicação',
-      ),
-      LessonItem(
-        id: 'math-002',
-        number: '02',
-        title: 'Frações',
-        subtitle: 'Conceitos fundamentais',
-      ),
-      LessonItem(
-        id: 'math-003',
-        number: '03',
-        title: 'Equações do 1º Grau',
-        subtitle: 'Resolução de problemas',
-      ),
-      LessonItem(
-        id: 'math-004',
-        number: '04',
-        title: 'Geometria Plana',
-        subtitle: 'Áreas e perímetros',
-      ),
-      LessonItem(
-        id: 'math-005',
-        number: '05',
-        title: 'Razão e Proporção',
-        subtitle: 'Regra de três',
-      ),
-      LessonItem(
-        id: 'math-006',
-        number: '06',
-        title: 'Porcentagem',
-        subtitle: 'Cálculos práticos',
-      ),
-      LessonItem(
-        id: 'math-007',
-        number: '07',
-        title: 'Estatística Básica',
-        subtitle: 'Média, moda e mediana',
-      ),
-    ],
-  };
-
-  List<LessonItem> get currentLessons => mockLessons[selectedSubject] ?? [];
+  String get subjectId => selectedSubject == Subject.portuguese
+      ? 'TIFQELRQKWipy2kmcaxw'
+      : 'X2FS62EujxD7bcASs2mz';
 
   String get subjectTitle =>
-      selectedSubject == Subject.portuguese ? 'Português' : 'Matemática';
+      selectedSubject == Subject.portuguese ? 'portugues' : 'matematica';
 
   @override
   Widget build(BuildContext context) {
@@ -129,115 +42,138 @@ class _LessonsListScreenState extends State<LessonsListScreen> {
       ),
       body: Column(
         children: [
-          // Filtro de Matérias
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 1,
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Escolha a matéria:',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: _SubjectFilterButton(
-                        label: 'Português',
-                        icon: Icons.menu_book,
-                        isSelected: selectedSubject == Subject.portuguese,
-                        onTap: () {
-                          setState(() {
-                            selectedSubject = Subject.portuguese;
-                          });
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _SubjectFilterButton(
-                        label: 'Matemática',
-                        icon: Icons.calculate,
-                        isSelected: selectedSubject == Subject.math,
-                        onTap: () {
-                          setState(() {
-                            selectedSubject = Subject.math;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          _buildSubjectFilter(),
+          _buildSubjectTitle(),
+          _buildLessonsList(),
+        ],
+      ),
+    );
+  }
 
-          // Título da matéria selecionada
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                subjectTitle,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-            ),
-          ),
-
-          // Lista de Aulas
-          Expanded(
-            child: currentLessons.isEmpty
-                ? const Center(
-                    child: Text(
-                      'Nenhuma aula disponível',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
-                    ),
-                  )
-                : ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: currentLessons.length,
-                    itemBuilder: (context, index) {
-                      final lesson = currentLessons[index];
-                      return _LessonCard(
-                        lesson: lesson,
-                        onTap: () {
-                          // Navega para a tela da aula
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => MainScreen(
-                                initialIndex: 1,
-                                lessonId: lesson.id,
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
+  Widget _buildSubjectFilter() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 4,
+            offset: const Offset(0, 2),
           ),
         ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Escolha a matéria:',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Colors.black87,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: _SubjectFilterButton(
+                  label: 'Português',
+                  icon: Icons.menu_book,
+                  isSelected: selectedSubject == Subject.portuguese,
+                  onTap: () {
+                    setState(() {
+                      selectedSubject = Subject.portuguese;
+                    });
+                  },
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _SubjectFilterButton(
+                  label: 'Matemática',
+                  icon: Icons.calculate,
+                  isSelected: selectedSubject == Subject.math,
+                  onTap: () {
+                    setState(() {
+                      selectedSubject = Subject.math;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSubjectTitle() {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          subjectTitle,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLessonsList() {
+    return Expanded(
+      child: FutureBuilder<List<Lesson>>(
+        future: _lessonService.getLessonsBySubject(subjectId),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (snapshot.hasError) {
+            return const Center(child: Text('Erro ao carregar aulas'));
+          }
+
+          final lessons = snapshot.data ?? [];
+
+          if (lessons.isEmpty) {
+            return const Center(
+              child: Text(
+                'Nenhuma aula disponível',
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+            );
+          }
+
+          return ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            itemCount: lessons.length,
+            itemBuilder: (context, index) {
+              final lesson = lessons[index];
+
+              return _LessonCard(
+                number: (index + 1).toString().padLeft(2, '0'),
+                title: lesson.title,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          LessonPage(lessonId: lesson.id, subjectId: subjectId),
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        },
       ),
     );
   }
@@ -294,10 +230,15 @@ class _SubjectFilterButton extends StatelessWidget {
 
 // Widget do Card de Aula
 class _LessonCard extends StatelessWidget {
-  final LessonItem lesson;
+  final String number;
+  final String title;
   final VoidCallback onTap;
 
-  const _LessonCard({required this.lesson, required this.onTap});
+  const _LessonCard({
+    required this.number,
+    required this.title,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -334,7 +275,7 @@ class _LessonCard extends StatelessWidget {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    lesson.number,
+                    number,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -350,17 +291,12 @@ class _LessonCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        lesson.title,
+                        title,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: Colors.black87,
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        lesson.subtitle,
-                        style: TextStyle(fontSize: 13, color: Colors.grey[600]),
                       ),
                     ],
                   ),
@@ -387,19 +323,4 @@ class _LessonCard extends StatelessWidget {
       ),
     );
   }
-}
-
-// Modelo de dados da aula (simples)
-class LessonItem {
-  final String id;
-  final String number;
-  final String title;
-  final String subtitle;
-
-  LessonItem({
-    required this.id,
-    required this.number,
-    required this.title,
-    required this.subtitle,
-  });
 }
