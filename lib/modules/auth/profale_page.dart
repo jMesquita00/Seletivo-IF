@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:seletivo_if/modules/auth/login_screen.dart';
 import 'package:seletivo_if/modules/splash/notification_page.dart';
 
@@ -7,6 +8,8 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -19,6 +22,7 @@ class ProfilePage extends StatelessWidget {
                   clipper: HeaderClipper(),
                   child: Container(height: 230, color: const Color(0xff319945)),
                 ),
+
                 // Avatar
                 Positioned(
                   bottom: 0,
@@ -49,7 +53,10 @@ class ProfilePage extends StatelessWidget {
                               color: Colors.white,
                               shape: BoxShape.circle,
                               boxShadow: [
-                                BoxShadow(blurRadius: 6, color: Colors.black26),
+                                BoxShadow(
+                                  blurRadius: 6,
+                                  color: Colors.black26,
+                                ),
                               ],
                             ),
                             child: const Icon(
@@ -68,13 +75,20 @@ class ProfilePage extends StatelessWidget {
           ),
 
           const SizedBox(height: 10),
+
+          // 🔹 Nome genérico (pode melhorar depois)
           const Text(
             "Usuário",
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
-          const Text(
-            "usuario@gmail.com",
-            style: TextStyle(fontSize: 16, color: Color(0xFF8C8C8C)),
+
+          // 🔹 EMAIL REAL DO FIREBASE
+          Text(
+            user?.email ?? 'Email não disponível',
+            style: const TextStyle(
+              fontSize: 16,
+              color: Color(0xFF8C8C8C),
+            ),
           ),
 
           const SizedBox(height: 30),
@@ -88,35 +102,43 @@ class ProfilePage extends StatelessWidget {
                   text: "Minha Conta",
                   onPressed: () {},
                 ),
+
                 _buildMenuItem(
                   icon: Icons.notifications_none,
                   text: "Notificações",
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => NotificationScreen()),
+                      MaterialPageRoute(
+                        builder: (_) => NotificationScreen(),
+                      ),
                     );
                   },
                 ),
+
                 _buildMenuItem(
                   icon: Icons.settings_outlined,
                   text: "Ajustes",
                   onPressed: () {},
                 ),
+
                 _buildMenuItem(
                   icon: Icons.book_outlined,
                   text: "Termos e Privacidade",
                   onPressed: () {},
                 ),
 
-                // Botão Sair
+                // 🔴 BOTÃO SAIR (LOGOUT REAL)
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      await FirebaseAuth.instance.signOut();
+
+                      Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (_) => LoginPage()),
+                        MaterialPageRoute(builder: (_) => const LoginPage()),
+                            (route) => false,
                       );
                     },
                     icon: const Icon(
@@ -142,6 +164,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 20),
               ],
             ),
