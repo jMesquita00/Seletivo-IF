@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "69020892648",
+    "project_id": "seletivo-if-db",
+    "storage_bucket": "seletivo-if-db.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69020892648:android:9275fd80372ea8dff9385d",
+        "android_client_info": {
+          "package_name": "br.edu.ifma.seletivo_if"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "69020892648-0t98n0g5i139s7cbdjsr4jus5bekb46c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7g4XKNY3X-ZyiRIOY8eepXzkoBz4ilE4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "69020892648-0t98n0g5i139s7cbdjsr4jus5bekb46c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "69020892648-80qfkd7c7p9o3pvsfop475pvh50vupbk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.edu.ifma.seletivoIf"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
